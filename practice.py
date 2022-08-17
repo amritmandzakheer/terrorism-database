@@ -22,17 +22,13 @@ descriptive = st.container()
 exploratory = st.container()
 
 with header:
-    buffer, col1 = st.columns([1, 5])
-    with col1:
-        st.title("Global Terrorism Analysis")
-        st.write("Welcome to Amrit Mandzak-Heer's first data project!")
-        st.text(" ")
+    st.title("Global Terrorism Analysis")
+    st.write("Welcome to Amrit Mandzak-Heer's first data project!")
+    st.text(" ")
 
 with method:
-    buffer, col1 = st.columns([1, 5])
-    with col1:
-        st.header("Source and Method")
-        st.write(
+    st.header("Source and Method")
+    st.write(
             "I will be using the Global Terrorism Database (GTD), which is maintained by the National Consortium for "
             "the  \nStudy of Terrorism and Responses to Terrorism (START) at the University of Maryland. The full "
             "database covers a  \ntime period of 1970-2017, includes 181,691 instances and over 100 "
@@ -42,37 +38,35 @@ with method:
             "  \nI will perform a descriptive and exploratory analysis. "
             "\n \nFor this analysis, I will employ the python programming language, the pandas and plotly "
             "libraries, and the streamlit web app framework")
-        st.text(" ")
-        st.subheader("A quick look at the dataset")
-        st.caption("Table shows first 20 rows and selected attributes of dataset")
-        st.text(" ")
+    st.text(" ")
+    st.subheader("A quick look at the dataset")
+    st.caption("Table shows first 20 rows and selected attributes of dataset")
+    st.text(" ")
 
-        st.write(terror[['year', 'country', 'region', 'attacktype1', 'targtype', 'nkill', 'nwound']].head(20))
-        st.text(" ")
+    st.write(terror[['year', 'country', 'region', 'attacktype1', 'targtype', 'nkill', 'nwound']].head(20))
+    st.text(" ")
 
 with descriptive:
-    buffer, col1 = st.columns([1, 5])
-    with col1:
-        st.header("Results of Analysis")
-        st.write("Here are the results from some common descriptive and exploratory analyses performed on the dataset")
-        st.text(" ")
-        st.subheader("Summary Statistics")
+    st.header("Results of Analysis")
+    st.write("Here are the results from some common descriptive and exploratory analyses performed on the dataset")
+    st.text(" ")
+    st.subheader("Summary Statistics")
 
-        sum_kill = terror['nkill'].sum()
-        sum_kill_year = terror.groupby('year')['nkill'].sum()
-        mean_kill_year = sum_kill_year.mean()
-        median_kill_year = sum_kill_year.median()
-        std_kill_year = sum_kill_year.std()
-        count_events = terror['eventid'].count()
-        events_year = terror.groupby('year')['eventid'].count()
-        mean_events_year = events_year.mean()
-        median_events_year = events_year.median()
-        std_events_year = events_year.std()
-        sum_wounded = terror['nwound'].sum()
-        sum_wound_year = terror.groupby('year')['nkill'].sum()
-        mean_wounded_year = sum_wound_year.mean()
+    sum_kill = terror['nkill'].sum()
+    sum_kill_year = terror.groupby('year')['nkill'].sum()
+    mean_kill_year = sum_kill_year.mean()
+    median_kill_year = sum_kill_year.median()
+    std_kill_year = sum_kill_year.std()
+    count_events = terror['eventid'].count()
+    events_year = terror.groupby('year')['eventid'].count()
+    mean_events_year = events_year.mean()
+    median_events_year = events_year.median()
+    std_events_year = events_year.std()
+    sum_wounded = terror['nwound'].sum()
+    sum_wound_year = terror.groupby('year')['nkill'].sum()
+    mean_wounded_year = sum_wound_year.mean()
 
-        summary = pd.DataFrame(columns=['Statistic', 'Value'],
+    summary = pd.DataFrame(columns=['Statistic', 'Value'],
                                data=[['Total number of events', count_events],
                                      ['Mean number of events per year', mean_events_year],
                                      ['Median number of events per year', median_events_year],
@@ -85,38 +79,36 @@ with descriptive:
                                      ['Mean wounded per year', mean_wounded_year]],
                                dtype='int')
 
-        st.write(summary)
+    st.write(summary)
 
-        st.text(" ")
-        st.write("Given the spread, the measures of central tendency are not particularly informative. "
+    st.text(" ")
+    st.write("Given the spread, the measures of central tendency are not particularly informative. "
                  "  \nPlotting the data over time will provide a more valuable analysis.")
-        st.text(" ")
-        st.subheader("Plotting the Data")
+    st.text(" ")
+    st.subheader("Plotting the Data")
 
-        events_year = pd.DataFrame(terror.groupby('year')['eventid'].count(), dtype='int')
+    events_year = pd.DataFrame(terror.groupby('year')['eventid'].count(), dtype='int')
 
-        fig = px.line(data_frame=events_year, x=events_year.index, y=events_year.columns,
+    fig = px.line(data_frame=events_year, x=events_year.index, y=events_year.columns,
                       title='<b>Number of Terrorist Events by Year</b>',
                       labels=dict(eventid='Number of Events', year='Year'),
                       width=900,
                       height=500)
-        st.plotly_chart(fig)
-        st.write("The large spread can now be explained by the significant increase in terrorist events since "
+    st.plotly_chart(fig)
+    st.write("The large spread can now be explained by the significant increase in terrorist events since "
                  "approximately 2011.")
-        st.text(" ")
+    st.text(" ")
 
 
 with exploratory:
-    buffer, col1 = st.columns([1, 5])
-    with col1:
-        st.subheader("Explore Changes over Time")
-        st.write("Tracking other attributes over time may also help us answer the following questions:  \n"
+    st.subheader("Explore Changes over Time")
+    st.write("Tracking other attributes over time may also help us answer the following questions:  \n"
              "1) Does the predominant type of attack change over time?  \n"
              "2) Does the location of terrorist attacks change over time?  \n"
              "3) Does the target of terrorist attacks change over time?")
-        st.text(" ")
+    st.text(" ")
 
-    buffer, col2, col3 = st.columns([1, 4, 1])
+    col2, col3 = st.columns([4, 1])
     with col3:
         st.text(" ")
         st.text(" ")
@@ -192,7 +184,7 @@ with exploratory:
         st.text(" ")
         st.text(" ")
 
-    buffer, col4, col5 = st.columns([1, 4, 1])
+    col4, col5 = st.columns([4, 1])
 
     with col5:
         st.text(" ")
