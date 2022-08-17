@@ -10,7 +10,7 @@ st.set_page_config(layout='wide')
 @st.cache
 def get_data():
     terror_df = pd.read_csv(
-        r'https://github.com/amritmandzakheer/terrorism-database/blob/92783270c1f83db0aa9b4da1ff1f9bea016dc537/globalterrorism.csv',
+        r'globalterrorism.csv',
         encoding='ISO-8859-1', low_memory=False)
     return terror_df
 
